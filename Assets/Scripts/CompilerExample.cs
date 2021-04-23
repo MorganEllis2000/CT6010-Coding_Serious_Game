@@ -4,6 +4,7 @@ using System.CodeDom.Compiler;
 using System.Reflection;
 using System.Text;
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -14,19 +15,57 @@ public class CompilerExample : MonoBehaviour {
 	private string inputString;
 	public Text ErrorLog;
 	public Button runButton;
-	public string answer;
+	private string answer;
 	public Button nextButton;
-	public GameObject go_InfoPannel;
 	private string debugString;
+	private string lastInputString;
+
+	string[] subs;
+
+	[TextArea(15, 20)]
+	public string Description = "";
+	[TextArea(15, 20)]
+	public string Answer = "";
 
 	void Start() {
 		input.GetComponent<InputField>().lineType = InputField.LineType.MultiLineNewline;
+		inputString =	"using UnityEngine;\n" +
+						"public class Test{\n" +
+						"    public static void main(){\n" +
+						"        debug.log(" + "\"" + "Hello World" + "\"" + ")\n" +
+						"	}\n" +
+						"}";
+		input.text = Description;
 
+		answer = Answer;
+
+		subs = input.text.ToString().Split(' ', '\t');
+		//lastInputString = inputString;
+
+		/*
+		for (int i = 0; i < subs.Length; i++) {
+			if (subs[i].ToString() == "using" || subs[i].ToString() == "public" || subs[i].ToString() == "void") {
+				string j = subs[i];
+				Debug.Log(j);
+				input.text = input.text.Replace(j, "<color=#0000ffff>" + j + "</color>");
+				
+			}
+			if (subs[i].ToString() == "class" || subs[i].ToString() == "Test") {
+				string j = subs[i];
+				Debug.Log(j);
+				input.text = input.text.Replace(j, "<color=#008000ff>" + j + "</color>");
+			}
+			if (subs[i].ToString() == "Debug") {
+				string j = subs[i];
+				Debug.Log(j);
+				input.text = input.text.Replace(j, "<color=#ffa500ff>" + j + "</color>");
+			}
+		}*/
 	}
 
 	private void Awake() {
-		nextButton.gameObject.SetActive(false);
-		go_InfoPannel.gameObject.SetActive(false);
+		//nextButton.gameObject.SetActive(false);
+		Debug.ClearDeveloperConsole();
 	}
 
 	void OnEnable() {
@@ -43,9 +82,11 @@ public class CompilerExample : MonoBehaviour {
 		ErrorLog.text += logString + "\r\n";
 		debugString += logString;
 
-		if(string.Compare(debugString, answer) == 0) {
+		if(string.Compare(inputString, answer) == 0) {
 			Debug.Log("Correct");
 			nextButton.gameObject.SetActive(true);
+			int nextSceneLoad = SceneManager.GetActiveScene().buildIndex + 1;
+			PlayerPrefs.SetInt("levelAt", nextSceneLoad);
 		} else {
 			Debug.Log("Incorrect");
 		}
@@ -53,7 +94,32 @@ public class CompilerExample : MonoBehaviour {
 		Debug.Log(debugString);
 	}
 	public void Update() {
-
+		/*
+		if (input.text.ToString() != inputString) {
+			for (int i = 0; i < subs.Length; i++) {
+				if (subs[i].ToString() == "using" || subs[i].ToString() == "public" || subs[i].ToString() == "void") {
+					string j = subs[i];
+					Debug.Log(j);
+					input.text = input.text.Replace(j, "<color=#0000ffff>" + j + "</color>");
+				} else if (subs[i].ToString() != "using" || subs[i].ToString() != "public" || subs[i].ToString() != "void") {
+					string j = subs[i];
+					Debug.Log(j);
+					input.text = input.text.Replace("<color=#0000ffff>" + j + "</color>", j);
+				}
+				if (subs[i].ToString() == "class" || subs[i].ToString() == "Test") {
+					string j = subs[i];
+					Debug.Log(j);
+					input.text = input.text.Replace(j, "<color=#008000ff>" + j + "</color>");
+				}
+				if (subs[i].ToString() == "Debug") {
+					string j = subs[i];
+					Debug.Log(j);
+					input.text = input.text.Replace(j, "<color=#ffa500ff>" + j + "</color>");
+				}
+			}
+			subs = input.text.ToString().Split(' ', '\t');
+		
+		}*/
 	}
 
 	/// <summary>
@@ -64,10 +130,10 @@ public class CompilerExample : MonoBehaviour {
 	}
 
 	public void OpenUIInformationHelp() {
-		go_InfoPannel.gameObject.SetActive(true);
+
 	}
 	public void CloseUIInformationHelp() {
-		go_InfoPannel.gameObject.SetActive(false);
+
 	}
 
 	public void ExecuteCode() {
@@ -75,16 +141,9 @@ public class CompilerExample : MonoBehaviour {
 		debugString = "";
 		ErrorLog.text = "";
 		Debug.ClearDeveloperConsole();
-		var assembly = Compile(@"
-								using UnityEngine;
+		var assembly = Compile(inputString);
 
-								public class Test {
-									public static void Foo() {" +
-									inputString +
-									"}}");
-
-
-		var method = assembly.GetType("Test").GetMethod("Foo");
+		var method = assembly.GetType("Test").GetMethod("main");
 		var del = (Action)Delegate.CreateDelegate(typeof(Action), method);
 		del.Invoke();
 	}
@@ -125,17 +184,4 @@ public class CompilerExample : MonoBehaviour {
 		return result.CompiledAssembly;
 	}
 }
-/*
-using UnityEngine;
-
-public class Test {
-	public static void Foo() {
-		var col = new Color(Random.value, Random.value, Random.value);
-		var r = GameObject.FindObjectOfType<MeshRenderer>();
-		r.material.color = col;
-
-		r.transform.position = Random.insideUnitSphere;
-	}
-}
-*/
 

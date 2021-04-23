@@ -9,9 +9,18 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 9ed6e799bd65d3a47936aff99474483e
   - enabled: 1
-    path: Assets/Scenes/Question1.unity
+    path: Assets/Scenes/Integers/Question1.1.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/Question2.unity
+    path: Assets/Scenes/Integers/Question1.2.unity
     guid: 1066f4b4388e3eb4e9e045d1f4300145
+  - enabled: 1
+    path: Assets/Scenes/Integers/Question1.3.unity
+    guid: 01d139a0c1b51144a9f5cdc7a21035bb
+  - enabled: 1
+    path: Assets/Scenes/Integers/Question1.4.unity
+    guid: 2fc536a0d4c2270419d90863aa0cc14a
+  - enabled: 1
+    path: Assets/Scenes/Integers/Question1.5.unity
+    guid: cf3a65ea2cfb8b94283a75ce68537e09
   m_configObjects: {}
