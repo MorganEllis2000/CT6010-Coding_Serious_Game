@@ -28,6 +28,13 @@ public class CompilerExample : MonoBehaviour {
 	public string Answer = "";
 
 	void Start() {
+		int iCurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+		int levelAt = PlayerPrefs.GetInt("levelAt", 1);
+		if (iCurrentSceneIndex < levelAt) {
+			nextButton.gameObject.SetActive(true);
+		} else {
+			nextButton.gameObject.SetActive(false);
+		}
 		input.GetComponent<InputField>().lineType = InputField.LineType.MultiLineNewline;
 		inputString =	"using UnityEngine;\n" +
 						"public class Test{\n" +
@@ -120,20 +127,6 @@ public class CompilerExample : MonoBehaviour {
 			subs = input.text.ToString().Split(' ', '\t');
 		
 		}*/
-	}
-
-	/// <summary>
-	/// loads the scene based on the index assigned in the inspector
-	/// </summary>
-	public void LoadByIndex(int sceneIndex) {
-		SceneManager.LoadScene(sceneIndex);
-	}
-
-	public void OpenUIInformationHelp() {
-
-	}
-	public void CloseUIInformationHelp() {
-
 	}
 
 	public void ExecuteCode() {

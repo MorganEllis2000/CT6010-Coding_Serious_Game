@@ -20,9 +20,7 @@ public class LoadIndex : MonoBehaviour
     }
 
     public void LoadNextScene() {
-        int iCurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        
+        int iCurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;       
         SceneManager.LoadScene(iCurrentSceneIndex + 1);
     }
 
@@ -32,8 +30,6 @@ public class LoadIndex : MonoBehaviour
         int levelAt = PlayerPrefs.GetInt("levelAt", 1);
         if (iCurrentSceneIndex < levelAt) {
             nextButton.SetActive(true);
-        } else {
-            nextButton.SetActive(false);
-        }
+        } 
     }
 }
