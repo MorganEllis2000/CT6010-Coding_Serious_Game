@@ -28,8 +28,13 @@ public class LoadIndex : MonoBehaviour
         GameObject nextButton = GameObject.Find("Next");
         int iCurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int levelAt = PlayerPrefs.GetInt("levelAt", 1);
-        if (iCurrentSceneIndex < levelAt) {
-            nextButton.SetActive(true);
-        } 
+        if(nextButton != null)
+		{
+            if (iCurrentSceneIndex < levelAt)
+            {
+                nextButton.SetActive(true);
+            }
+        }
+
     }
 }
