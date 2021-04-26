@@ -1230,7 +1230,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 1c15fe0fd650a1d468fbcded48e9e394, type: 3}
-    m_FontSize: 30
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -1735,9 +1735,10 @@ MonoBehaviour:
   Description: "using UnityEngine;\npublic class Test{\n\tpublic static void main(){\n\t\tint
     a = (5 % 4);\n\t\tDebug.Log(\"Method 1: \" + a);\n\n\t\tint b = 5 - (5 / 4) *
     4;\n\t\tDebug.Log(\"Method 2: \" + b);\n\t\t}\n}"
-  Answer: "using UnityEngine;\npublic class Test{\n\tpublic static void main(){\n\t\tint
+  codeAnswer: "using UnityEngine;\npublic class Test{\n\tpublic static void main(){\n\t\tint
     a = (5 % 4);\n\t\tDebug.Log(\"Method 1: \" + a);\n\n\t\tint b = 5 - (5 / 4) *
     4;\n\t\tDebug.Log(\"Method 2: \" + b);\n\t\t}\n}"
+  textAnswer: 
 --- !u!4 &1370143711
 Transform:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ public class CompilerExample : MonoBehaviour {
 	private string inputString;
 	public Text ErrorLog;
 	public Button runButton;
-	private string answer;
+	private string Answer;
 	public Button nextButton;
 	private string debugString;
 	private string lastInputString;
@@ -25,7 +25,11 @@ public class CompilerExample : MonoBehaviour {
 	[TextArea(15, 20)]
 	public string Description = "";
 	[TextArea(15, 20)]
-	public string Answer = "";
+	public string codeAnswer = "";
+	[TextArea(15, 20)]
+	public string textAnswer = "";
+
+
 
 	void Start() {
 		int iCurrentSceneIndex = SceneManager.GetActiveScene().buildIndex;
@@ -36,15 +40,8 @@ public class CompilerExample : MonoBehaviour {
 			nextButton.gameObject.SetActive(false);
 		}
 		input.GetComponent<InputField>().lineType = InputField.LineType.MultiLineNewline;
-		inputString =	"using UnityEngine;\n" +
-						"public class Test{\n" +
-						"    public static void main(){\n" +
-						"        debug.log(" + "\"" + "Hello World" + "\"" + ")\n" +
-						"	}\n" +
-						"}";
-		input.text = Description;
 
-		answer = Answer;
+		input.text = Description;
 
 		subs = input.text.ToString().Split(' ', '\t');
 		//lastInputString = inputString;
@@ -73,6 +70,7 @@ public class CompilerExample : MonoBehaviour {
 	private void Awake() {
 		//nextButton.gameObject.SetActive(false);
 		Debug.ClearDeveloperConsole();
+		//PlayerPrefs.DeleteAll();
 	}
 
 	void OnEnable() {
@@ -89,7 +87,20 @@ public class CompilerExample : MonoBehaviour {
 		ErrorLog.text += logString + "\r\n";
 		debugString += logString;
 
-		if(string.Compare(inputString, answer) == 0) {
+		if (textAnswer != null)
+		{
+			if (string.Compare(debugString, textAnswer) == 0)
+			{
+				Debug.Log("Correct");
+				nextButton.gameObject.SetActive(true);
+				int nextSceneLoad = SceneManager.GetActiveScene().buildIndex + 1;
+				PlayerPrefs.SetInt("levelAt", nextSceneLoad);
+			} else {
+				Debug.Log("Incorrect");
+			}
+		} 
+		
+		if(string.Compare(inputString, codeAnswer) == 0) {
 			Debug.Log("Correct");
 			nextButton.gameObject.SetActive(true);
 			int nextSceneLoad = SceneManager.GetActiveScene().buildIndex + 1;
@@ -98,7 +109,7 @@ public class CompilerExample : MonoBehaviour {
 			Debug.Log("Incorrect");
 		}
 
-		Debug.Log(debugString);
+		//Debug.Log(debugString);
 	}
 	public void Update() {
 		/*

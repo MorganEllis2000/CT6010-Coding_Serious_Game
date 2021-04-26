@@ -18,9 +18,16 @@
 		2.3.1 Char
 		2.3.2 Strings
 	2.4 Boolean
+		2.4.1 Bools
+		2.4.2 Ternary Operator
 
-3. For loops
-4. While loops
-5. Logic and Conditionals
-6. Methods
+3. If... Else
+	3.1 If statemnets
+	3.2 Else if statements
+	3.3 Else statements
+	
+	
+4. Switch Statements
+5. While Loops
+6. For Loops
 7. Arrays

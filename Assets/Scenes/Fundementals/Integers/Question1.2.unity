@@ -2590,7 +2590,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 1c15fe0fd650a1d468fbcded48e9e394, type: 3}
-    m_FontSize: 30
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -2664,8 +2664,9 @@ MonoBehaviour:
   runButton: {fileID: 1642277405}
   nextButton: {fileID: 1362427554}
   Description: "using UnityEngine;\npublic class Test{\n\tpublic static void main(){\n\t\t\n\t\t}\n}"
-  Answer: "using UnityEngine;\npublic class Test{\n\tpublic static void main(){\n\t\tint
+  codeAnswer: "using UnityEngine;\npublic class Test{\n\tpublic static void main(){\n\t\tint
     a = 5, b = 5, c;\n\t\tc = a + b;\n\t\tDebug.Log(c);\n\t\t}\n}"
+  textAnswer: 10
 --- !u!4 &1332269780
 Transform:
   m_ObjectHideFlags: 0
