@@ -109,6 +109,15 @@ public class CompilerExample : MonoBehaviour {
 			Debug.Log("Incorrect");
 		}
 
+		if (string.Compare(debugString, textAnswer) == 0) {
+			Debug.Log("Correct");
+			nextButton.gameObject.SetActive(true);
+			int nextSceneLoad = SceneManager.GetActiveScene().buildIndex + 1;
+			PlayerPrefs.SetInt("levelAt", nextSceneLoad);
+		} else {
+			Debug.Log("Incorrect");
+		}
+
 		//Debug.Log(debugString);
 	}
 	public void Update() {
